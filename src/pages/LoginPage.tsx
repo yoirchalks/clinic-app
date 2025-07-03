@@ -1,14 +1,41 @@
+import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
-  const [userId, setUserId] = useState("");
+  const [patientId, setPatientId] = useState("");
   const [staffId, setStaffId] = useState("");
 
   const navigate = useNavigate();
 
   const handleSubmit = async () => {
-    console.log({ userId, staffId });
+    const cleanedPatientId = parseInt(patientId.trim());
+    const cleanedStaffId = parseInt(staffId.trim());
+
+    if (!setStaffId) {
+      alert(`staff id required`);
+      return;
+    }
+    let attempt: "doctor" | "patient";
+    attempt = patientId ? "patient" : "doctor";
+    try {
+      const response = await axios.post("http://localhost:3000/api/signIns", {
+        patientId: cleanedPatientId,
+        staffId: cleanedStaffId,
+        attempt,
+      });
+      if (response && attempt === "doctor") {
+        navigate("/staff", { state: response.data });
+      } else {
+        navigate("/patient", { state: response.data });
+      }
+    } catch (error: any) {
+      alert(
+        error?.response?.data?.message ||
+          error.message ||
+          "something went wrong whilst sending your data"
+      );
+    }
   };
 
   return (
@@ -24,20 +51,23 @@ const LoginPage = () => {
             </label>
             <input
               onChange={(e) => setStaffId(e.target.value)}
-              type="text"
+              type="number"
+              min={1}
               name="staffId"
               id="staffId"
               placeholder="Staff ID"
               className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-green-600"
             />
           </div>
-          <div className="userIdInput mb-6">
-            <label className="block mb-2 font-semibold" htmlFor="userId">
+          <div className="patientIdInput mb-6">
+            <label className="block mb-2 font-semibold" htmlFor="patientId">
               If you are a patient, please enter your personal ID number here
             </label>
             <input
-              onChange={(e) => setUserId(e.target.value)}
-              type="text"
+              id="patientId"
+              onChange={(e) => setPatientId(e.target.value)}
+              type="number"
+              min={1}
               placeholder="Enter user ID here"
               className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-green-600"
             />
