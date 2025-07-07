@@ -6,10 +6,8 @@ const PatientPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  console.log(location.state.image);
-
   const patientId = location.state?.patient_id;
-  const existingImage = location.state?.image.toString();
+  const existingImage = location.state?.image;
 
   const handleCancelAppointment = async () => {
     const confirm = window.confirm("are you sure you want to leave the que?");
