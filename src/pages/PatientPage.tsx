@@ -1,11 +1,38 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import AvatarUploader from "../components/Avatar";
+import axios from "axios";
+
 const PatientPage = () => {
   const location = useLocation();
-  console.log(location.state);
+  const navigate = useNavigate();
+
+  console.log(location.state.image);
+
+  const patientId = location.state?.patient_id;
+  const existingImage = location.state?.image.toString();
+
+  const handleCancelAppointment = async () => {
+    const confirm = window.confirm("are you sure you want to leave the que?");
+    if (confirm) {
+      try {
+        await axios.put(`http://localhost:3000/api/ques/${patientId}`);
+        alert("appointment cancelled");
+        console.log("appointment cancelled");
+        navigate(-1);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  };
 
   return (
     <>
-      <button>Cancel appointment</button>
+      <AvatarUploader
+        existingImage={existingImage}
+        uploadUrl={`http://localhost:3000/api/patients/${patientId}`}
+        showLog={true}
+      />
+      <button onClick={handleCancelAppointment}>Cancel appointment</button>
     </>
   );
 };
