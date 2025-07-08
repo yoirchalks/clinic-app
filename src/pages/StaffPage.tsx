@@ -1,9 +1,12 @@
 import axios from "axios";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import AvatarUploader from "../components/Avatar";
 
 function StaffPage() {
+  const navigate = useNavigate();
   const location = useLocation();
   const staffId = location.state.staff_id;
+  const existingImage = location.state.image;
 
   const handleSignOut = async () => {
     try {
@@ -12,12 +15,19 @@ function StaffPage() {
         {
           id: staffId,
         }
-      ); //TODO: there are currently issues with socket.io backend...
+      );
+      navigate(-1);
       console.log(response);
-    } catch (error) {}
+    } catch (error: any) {
+      alert(error.message);
+    }
   };
   return (
     <div>
+      <AvatarUploader
+        existingImage={existingImage}
+        uploadUrl={`http://localhost:3000/api/staff/${staffId}`}
+      />
       <button className="">Next Patient</button>
       <button onClick={handleSignOut}>Log out</button>
     </div>

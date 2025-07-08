@@ -28,7 +28,6 @@ const PatientPage = () => {
       <AvatarUploader
         existingImage={existingImage}
         uploadUrl={`http://localhost:3000/api/patients/${patientId}`}
-        showLog={true}
       />
       <button onClick={handleCancelAppointment}>Cancel appointment</button>
     </>
