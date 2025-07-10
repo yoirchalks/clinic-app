@@ -29,8 +29,11 @@ const Sockets: React.FC<SocketsProps> = ({ uuid }) => {
     socketRef.current = socket;
 
     socket.on("connect", () => {
-      socket.emit("on_connected", uuid);
       console.log("connected");
+    });
+
+    socket.on("ready", () => {
+      socket.emit("on_connected", uuid);
     });
 
     socket.on("room_message", (msg: string) => {
