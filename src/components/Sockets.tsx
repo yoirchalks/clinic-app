@@ -41,29 +41,49 @@ const Sockets: React.FC<SocketsProps> = ({ uuid }) => {
 
       messageCounter.current++;
 
-      setMessages((prev) => [
-        ...prev,
-        {
-          messageId: messageCounter.current,
-          messageType: "room",
-          message: msg,
-        },
-      ]);
+      setMessages((prev) => {
+        const isDuplicate = prev.some((m) => m.message === msg);
+        if (isDuplicate) {
+          messageCounter.current--;
+          return prev;
+        } else {
+          return [
+            ...prev,
+            {
+              messageId: messageCounter.current,
+              message: msg,
+              messageType: "room",
+            },
+          ];
+        }
+      });
     });
 
     socket.on("user_message", (msg: string) => {
       console.log("message: ", msg);
 
+      messages.forEach((message) => {
+        if (message.message === msg) return;
+      });
+
       messageCounter.current++;
 
-      setMessages((prev) => [
-        ...prev,
-        {
-          messageId: messageCounter.current,
-          messageType: "user",
-          message: msg,
-        },
-      ]);
+      setMessages((prev) => {
+        const isDuplicate = prev.some((m) => m.message === msg);
+        if (isDuplicate) {
+          messageCounter.current--;
+          return prev;
+        } else {
+          return [
+            ...prev,
+            {
+              messageId: messageCounter.current,
+              message: msg,
+              messageType: "user",
+            },
+          ];
+        }
+      });
     });
 
     socket.on("disconnect", () => {
