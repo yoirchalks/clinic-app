@@ -2,7 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const LoginPage = () => {
+const PatientLoginPage = () => {
   const [patientId, setPatientId] = useState("");
   const [staffId, setStaffId] = useState("");
 
@@ -12,23 +12,23 @@ const LoginPage = () => {
     const cleanedPatientId = parseInt(patientId.trim());
     const cleanedStaffId = parseInt(staffId.trim());
 
+    if (!setPatientId) {
+      alert(`patient id required`);
+      return;
+    }
     if (!setStaffId) {
       alert(`staff id required`);
       return;
     }
-    let attempt: "doctor" | "patient";
-    attempt = patientId ? "patient" : "doctor";
+    let attempt = "patient";
     try {
       const response = await axios.post("http://localhost:3000/api/signIns", {
         patientId: cleanedPatientId,
         staffId: cleanedStaffId,
         attempt,
       });
-      if (response && attempt === "doctor") {
-        navigate("/staff", { state: response.data });
-      } else {
-        navigate("/patient", { state: response.data });
-      }
+
+      navigate("/patient", { state: response.data });
     } catch (error: any) {
       alert(
         error?.response?.data?.message ||
@@ -61,7 +61,7 @@ const LoginPage = () => {
           </div>
           <div className="patientIdInput mb-6">
             <label className="block mb-2 font-semibold" htmlFor="patientId">
-              If you are a patient, please enter your personal ID number here
+              Please enter your personal ID number here
             </label>
             <input
               id="patientId"
@@ -79,4 +79,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default PatientLoginPage;
