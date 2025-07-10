@@ -3,13 +3,11 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const StaffLoginPage = () => {
-  const [patientId, setPatientId] = useState("");
   const [staffId, setStaffId] = useState("");
 
   const navigate = useNavigate();
 
   const handleSubmit = async () => {
-    const cleanedPatientId = parseInt(patientId.trim());
     const cleanedStaffId = parseInt(staffId.trim());
 
     if (!setStaffId) {
@@ -19,7 +17,6 @@ const StaffLoginPage = () => {
     let attempt = "doctor";
     try {
       const response = await axios.post("http://localhost:3000/api/signIns", {
-        patientId: cleanedPatientId,
         staffId: cleanedStaffId,
         attempt,
       });
