@@ -35,7 +35,7 @@ const StaffLoginPage = () => {
       <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
         <div className="bg-white p-8 rounded shadow-md w-full max-w-md">
           <h2 className="text-3xl text-green-950 font-bold mb-6 text-center">
-            Login
+            Staff Login
           </h2>
           <div className="staffIdInput mb-6">
             <label className="block mb-2 font-semibold" htmlFor="staffId">
