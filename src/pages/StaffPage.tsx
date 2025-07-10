@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
 import AvatarUploader from "../components/Avatar";
+import Sockets from "../components/Sockets";
 
 function StaffPage() {
   const navigate = useNavigate();
@@ -30,6 +31,7 @@ function StaffPage() {
       />
       <button className="">Next Patient</button>
       <button onClick={handleSignOut}>Log out</button>
+      <Sockets uuid={location.state.uuid} />
     </div>
   );
 }
