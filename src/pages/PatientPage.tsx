@@ -16,7 +16,9 @@ const PatientPage = () => {
     const confirm = window.confirm("are you sure you want to leave the que?");
     if (confirm) {
       try {
-        await axios.put(`http://localhost:3000/api/ques/${patientId}`);
+        await axios.put(
+          `https://qwithme-ro6v.onrender.com/api/ques/${patientId}`
+        );
         alert("appointment cancelled");
         console.log("appointment cancelled");
         navigate(-1);
@@ -30,7 +32,7 @@ const PatientPage = () => {
     <>
       <AvatarUploader
         existingImage={existingImage}
-        uploadUrl={`http://localhost:3000/api/patients/${patientId}`}
+        uploadUrl={`https://qwithme-ro6v.onrender.com/api/patients/${patientId}`}
       />
       <button onClick={handleCancelAppointment}>Cancel appointment</button>
       <Sockets uuid={location.state.uuid} />

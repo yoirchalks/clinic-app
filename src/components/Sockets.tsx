@@ -22,7 +22,7 @@ const Sockets: React.FC<SocketsProps> = ({ uuid }) => {
   useEffect(() => {
     console.log("uuid: ", uuid);
 
-    const socket = io("http://localhost:3000", {
+    const socket = io("https://qwithme-ro6v.onrender.com", {
       auth: { uuid },
     });
 

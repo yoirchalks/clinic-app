@@ -11,7 +11,7 @@ function StaffPage() {
 
   const handleNextPatient = async () => {
     try {
-      await axios.put(`http://localhost:3000/api/ques/${staffId}`);
+      await axios.put(`https://qwithme-ro6v.onrender.com/api/ques/${staffId}`);
     } catch (error: any) {
       alert(error.message);
     }
@@ -19,9 +19,12 @@ function StaffPage() {
 
   const handleSignOut = async () => {
     try {
-      await axios.put(`http://localhost:3000/api/signIns/${staffId}`, {
-        id: staffId,
-      });
+      await axios.put(
+        `https://qwithme-ro6v.onrender.com/api/signIns/${staffId}`,
+        {
+          id: staffId,
+        }
+      );
       navigate(-1);
     } catch (error: any) {
       alert(error.message);
@@ -31,7 +34,7 @@ function StaffPage() {
     <div>
       <AvatarUploader
         existingImage={existingImage}
-        uploadUrl={`http://localhost:3000/api/staff/${staffId}`}
+        uploadUrl={`https://qwithme-ro6v.onrender.com/api/staff/${staffId}`}
       />
       <button onClick={handleNextPatient}>Next Patient</button>
       <button onClick={handleSignOut}>Log out</button>

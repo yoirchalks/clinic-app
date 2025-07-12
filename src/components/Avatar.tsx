@@ -2,9 +2,9 @@ import React, { useRef, useState } from "react";
 import axios from "axios";
 
 interface AvatarUploaderProps {
-  existingImage?: string; // base64 string from DB
-  uploadUrl: string; // full URL to PUT image
-  showLog?: boolean; // optionally show console logs
+  existingImage?: string;
+  uploadUrl: string;
+  showLog?: boolean;
 }
 
 const AvatarUploader: React.FC<AvatarUploaderProps> = ({

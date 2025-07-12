@@ -22,11 +22,14 @@ const PatientLoginPage = () => {
     }
     let attempt = "patient";
     try {
-      const response = await axios.post("http://localhost:3000/api/signIns", {
-        patientId: cleanedPatientId,
-        staffId: cleanedStaffId,
-        attempt,
-      });
+      const response = await axios.post(
+        "https://qwithme-ro6v.onrender.com/api/signIns",
+        {
+          patientId: cleanedPatientId,
+          staffId: cleanedStaffId,
+          attempt,
+        }
+      );
 
       navigate("/patient", { state: response.data });
     } catch (error: any) {
