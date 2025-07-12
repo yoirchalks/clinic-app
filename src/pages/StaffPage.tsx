@@ -9,16 +9,20 @@ function StaffPage() {
   const staffId = location.state.staff_id;
   const existingImage = location.state.image;
 
+  const handleNextPatient = async () => {
+    try {
+      await axios.put(`http://localhost:3000/api/ques/${staffId}`);
+    } catch (error: any) {
+      alert(error.message);
+    }
+  };
+
   const handleSignOut = async () => {
     try {
-      const response = await axios.put(
-        `http://localhost:3000/api/signIns/${staffId}`,
-        {
-          id: staffId,
-        }
-      );
+      await axios.put(`http://localhost:3000/api/signIns/${staffId}`, {
+        id: staffId,
+      });
       navigate(-1);
-      console.log(response);
     } catch (error: any) {
       alert(error.message);
     }
@@ -29,7 +33,7 @@ function StaffPage() {
         existingImage={existingImage}
         uploadUrl={`http://localhost:3000/api/staff/${staffId}`}
       />
-      <button className="">Next Patient</button>
+      <button onClick={handleNextPatient}>Next Patient</button>
       <button onClick={handleSignOut}>Log out</button>
       <Sockets uuid={location.state.uuid} />
     </div>
