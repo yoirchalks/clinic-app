@@ -19,3 +19,21 @@ The current UI doesn't allow for users or staff to be added. This must be done b
 ### Solution
 
 This is by design. The project focuses on the instant messaging aspect of the app. One could imagine that in a retail level app there would also be a separation of concerns between the instant messaging aspect and the secretarial/administrative aspects. I have demonstrated these skills in other projects. I plan of writing a script that can be run to populate a DB with dummy data.
+
+## Late update message
+
+### Problem
+
+The name of the staff member is currently displayed in whichever casing it is stored in the DB, generally lower case. It must be converted to Title Casing.
+
+### Solution
+
+Add utility function which converts to Title casing. Call it, either before the data is entered into the DB or before it is rendered in UI.
+
+```JS
+name =  name
+    .toLowerCase()
+    .split(' ')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+```
