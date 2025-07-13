@@ -5,7 +5,6 @@ import Sockets from "../components/Sockets";
 
 const PatientPage = () => {
   const location = useLocation();
-  console.log("recieving uuid", location.state.uuid);
 
   const navigate = useNavigate();
 

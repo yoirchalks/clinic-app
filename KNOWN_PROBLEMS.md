@@ -14,7 +14,7 @@ Separate logic connecting to sockets from sockets UI. Connect to sockets in Logi
 
 ### Problem
 
-The current UI doesn't allow for users or staff to be added. This must be done by sending requests directly to the backend via a ... such as Postman.
+The current UI doesn't allow for users or staff to be added. This must be done by sending requests directly to the backend via a HTTPrequest mocker, such as Postman. There is also no flexibility with regards to which staff member each patients get appointments. They are only allocated appointments with their primary provider as set when signing up. Similarly, rooms are allocated based on first available room as opposed to matching room type with staff's need.
 
 ### Solution
 
