@@ -14,7 +14,9 @@ function LandingPage() {
     <>
       <h1>Welcome to the Temple Fortune Health Center</h1>
       <h2>Please choose to continue</h2>
-      <button onClick={onUserClick}>User</button>
+      <button className="ml-6" onClick={onUserClick}>
+        Patient
+      </button>
       <button onClick={onStaffClick}>Staff</button>
     </>
   );
